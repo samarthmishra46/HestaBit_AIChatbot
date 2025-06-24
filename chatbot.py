@@ -1,10 +1,19 @@
 from google import genai
 import os
-# Ensure you have set the GOOGLE_API_KEY environment variable
-cmd="YOU ARE A HELPFUL ASSISTANT. PLEASE ANSWER THE FOLLOWING QUESTION ALSO ADD A BYE AFTER YOU ARE COMPLETE: {prompt}"
-def res(prompt: str):
+
+cmd = """YOU ARE A HELPFUL ASSISTANT. ANSWER BASED ON PREVIOUS CONVERSATION BELOW:\n
+{history}
+
+USER: {prompt}
+ASSISTANT:"""
+
+def res(prompt: str, history: list[str] = []):
     client = genai.Client(api_key=os.getenv("GOOGLE_API_KEY"))
+
+    history_text = "\n".join(history)
+    final_prompt = cmd.format(history=history_text, prompt=prompt)
+
     response = client.models.generate_content(
-        model="gemini-2.5-flash", contents=cmd.format(prompt=prompt)
+        model="gemini-2.5-flash", contents=final_prompt
     )
     return response
