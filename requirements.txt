@@ -1,6 +1,8 @@
 google-genai
 fastapi
 uvicorn
-openai
+openai==0.28
 requests
 redis
+faiss-cpu 
+numpy
