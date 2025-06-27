@@ -1,8 +1,11 @@
 google-genai
 fastapi
 uvicorn
-openai==0.28
+openai
 requests
 redis
 faiss-cpu 
 numpy
+streamlit
+audio-recorder-streamlit 
+pydub 
